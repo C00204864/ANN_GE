@@ -24,4 +24,9 @@ int main()
 	ann.applyChromosome(c);
 	ann.genChromosome().print();
 	std::system("PAUSE");
+
+	ANN ann2(0.5f, 1.f);
+	ann2.genFromChromosome(c);
+	ann2.genChromosome().print();
+	std::system("PAUSE");
 }

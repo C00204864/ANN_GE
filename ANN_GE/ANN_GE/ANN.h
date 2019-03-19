@@ -22,7 +22,7 @@ public:
 	std::map<std::string, Perceptron *> getOutputNodes();
 	Chromosome genChromosome();
 	void applyChromosome(Chromosome chromosome);
-	void genFromChromosome(); // TBI
+	void genFromChromosome(Chromosome chromosome);
 private:
 	std::map<std::string, Perceptron *> m_allNodes;
 	std::map<std::string, Perceptron *> m_inputNodes;

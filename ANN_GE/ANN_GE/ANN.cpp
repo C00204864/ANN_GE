@@ -72,9 +72,20 @@ void ANN::applyChromosome(Chromosome chromosome)
 		if (nullptr != p)
 		{
 			auto & inputs = p->getInputs();
-
 			inputs[gene.fromId].weight = gene.weight;
 		}
+	}
+}
+
+void ANN::genFromChromosome(Chromosome chromosome)
+{
+	for (auto & gene : chromosome.getGenes())
+	{
+		std::string toId = gene.toId;
+		std::string fromId = gene.fromId;
+		Perceptron * to = m_allNodes.find(toId) == m_allNodes.end() ? createNode(toId) : m_allNodes[toId];
+		Perceptron * from = m_allNodes.find(fromId) == m_allNodes.end() ? createNode(fromId) : m_allNodes[fromId];
+		createConnection(fromId, toId, gene.weight);
 	}
 }
 
