@@ -1,0 +1,41 @@
+#ifndef PERCEPTRON_H
+#define PERCEPTRON_H
+
+#include <iostream>
+#include <vector>
+#include <map>
+
+class Perceptron;
+
+struct Input
+{
+	Perceptron * node;
+	float weight;
+};
+
+class Perceptron
+{
+public:
+	Perceptron(std::string id, float threshold, float bias);
+	~Perceptron();
+	void addInput(Perceptron * inputPerceptron, float weight);
+	void addOutput(Perceptron * outputPerceptron);
+	void setValue(float val);
+	std::string getId();
+	std::map<std::string, Input> & getInputs();
+	float getOutput();
+	void signalInput();
+	void reset();
+private:
+	float fastSigmoid(float val);
+
+	std::string m_id;
+	std::map<std::string, Input> m_inputs;
+	std::vector<Perceptron *> m_outputs;
+	float m_outputVal;
+	int m_inputCounter;
+	float m_threshold;
+	float m_bias;
+};
+
+#endif // !PERCEPTRON_H
