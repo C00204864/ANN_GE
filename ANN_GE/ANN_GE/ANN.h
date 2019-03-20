@@ -18,6 +18,7 @@ public:
 	Perceptron * createOutputNode(std::string id);
 	void createConnection(std::string fromId, std::string toId);
 	void createConnection(std::string fromId, std::string toId, float weight);
+	std::map<std::string, Perceptron *> getAllNodes();
 	std::map<std::string, Perceptron *> getInputNodes();
 	std::map<std::string, Perceptron *> getOutputNodes();
 	Chromosome genChromosome();

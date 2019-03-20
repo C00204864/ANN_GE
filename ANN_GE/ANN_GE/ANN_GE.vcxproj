@@ -119,11 +119,14 @@
     <ClCompile Include="Chromosome.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Perceptron.cpp" />
+    <ClCompile Include="Pool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ANN.h" />
     <ClInclude Include="Chromosome.h" />
+    <ClInclude Include="MathUtil.h" />
     <ClInclude Include="Perceptron.h" />
+    <ClInclude Include="Pool.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

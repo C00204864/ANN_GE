@@ -36,6 +36,11 @@ void ANN::createConnection(std::string fromId, std::string toId, float weight)
 	}
 }
 
+std::map<std::string, Perceptron*> ANN::getAllNodes()
+{
+	return m_allNodes;
+}
+
 std::map<std::string, Perceptron*> ANN::getInputNodes()
 {
 	return m_inputNodes;
