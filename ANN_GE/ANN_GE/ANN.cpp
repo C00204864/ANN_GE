@@ -1,8 +1,9 @@
 #include "ANN.h"
 
-ANN::ANN(float threshold, float bias)
+ANN::ANN(float threshold, float bias, bool isOutputDigital)
 	: m_threshold(threshold),
-	m_bias(bias) {}
+	m_bias(bias),
+	m_isDigital(isOutputDigital) {}
 
 ANN::~ANN() {}
 
@@ -94,9 +95,17 @@ void ANN::genFromChromosome(Chromosome chromosome)
 	}
 }
 
+void ANN::reset()
+{
+	for (auto & node : m_allNodes)
+	{
+		node.second->reset();
+	}
+}
+
 Perceptron * ANN::createNode(std::string id)
 {
-	Perceptron * node = new Perceptron(id, m_threshold, m_bias);
+	Perceptron * node = new Perceptron(id, m_threshold, m_bias, m_isDigital);
 	m_allNodes.insert(std::pair<std::string, Perceptron *>(id, node));
 	return node;
 }

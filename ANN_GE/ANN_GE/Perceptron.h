@@ -16,7 +16,7 @@ struct Input
 class Perceptron
 {
 public:
-	Perceptron(std::string id, float threshold, float bias);
+	Perceptron(std::string id, float threshold, float bias, bool isOutputDigital);
 	~Perceptron();
 	void addInput(Perceptron * inputPerceptron, float weight);
 	void addOutput(Perceptron * outputPerceptron);
@@ -36,6 +36,7 @@ private:
 	int m_inputCounter;
 	float m_threshold;
 	float m_bias;
+	bool m_isDigital;
 };
 
 #endif // !PERCEPTRON_H

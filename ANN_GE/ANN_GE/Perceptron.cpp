@@ -1,11 +1,12 @@
 #include "Perceptron.h"
 
-Perceptron::Perceptron(std::string id, float threshold, float bias)
+Perceptron::Perceptron(std::string id, float threshold, float bias, bool isOutputDigital)
 	: m_id(id),
 	m_outputVal(0.f),
 	m_inputCounter(0),
 	m_threshold(threshold),
-	m_bias(bias) {}
+	m_bias(bias),
+	m_isDigital(isOutputDigital) {}
 
 Perceptron::~Perceptron() {}
 
@@ -57,7 +58,8 @@ void Perceptron::signalInput()
 			Input input = pair.second;
 			inputSum += (input.weight * input.node->getOutput());
 		}
-		m_outputVal = fastSigmoid(inputSum) >= m_threshold ? 1.f : 0.f;
+		float sigmoid = fastSigmoid(inputSum);
+		m_outputVal = m_isDigital ? (sigmoid >= m_threshold ? 1.f : 0.f) : sigmoid;
 		for (Perceptron * outputNode : m_outputs)
 		{
 			outputNode->signalInput();
@@ -75,4 +77,3 @@ float Perceptron::fastSigmoid(float val)
 {
 	return val / (1 + abs(val));
 }
-

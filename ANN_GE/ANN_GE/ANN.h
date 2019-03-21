@@ -11,7 +11,7 @@
 class ANN
 {
 public:
-	ANN(float threshold, float bias);
+	ANN(float threshold, float bias, bool isOutputDigital);
 	~ANN();
 	Perceptron * createNode(std::string id);
 	Perceptron * createInputNode(std::string id);
@@ -24,12 +24,14 @@ public:
 	Chromosome genChromosome();
 	void applyChromosome(Chromosome chromosome);
 	void genFromChromosome(Chromosome chromosome);
+	void reset();
 private:
 	std::map<std::string, Perceptron *> m_allNodes;
 	std::map<std::string, Perceptron *> m_inputNodes;
 	std::map<std::string, Perceptron *> m_outputNodes;
 	float m_threshold;
 	float m_bias;
+	bool m_isDigital;
 };
 
 #endif // !ANN_H

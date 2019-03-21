@@ -44,7 +44,21 @@ void Pool::genPopulation(Chromosome baseChromosome)
 		for (auto & gene : member.chromosome.getGenes())
 		{
 			gene.weight = randomBetweenTwoFloats(m_minWeight, m_maxWeight);
+			std::cout << "w: " << gene.weight << std::endl;
 		}
 		m_population.push_back(member);
 	}
+}
+
+void Pool::performCrossovers()
+{
+}
+
+Chromosome Pool::crossover(Chromosome parent1, Chromosome parent2)
+{
+	return Chromosome();
+}
+
+void Pool::performMutations()
+{
 }

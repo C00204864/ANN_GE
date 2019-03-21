@@ -21,6 +21,9 @@ public:
 	std::vector<Member> & getMembers();
 private:
 	void genPopulation(Chromosome baseChromosome);
+	void performCrossovers();
+	Chromosome crossover(Chromosome parent1, Chromosome parent2);
+	void performMutations();
 
 	int m_populationSize;
 	float m_mutationChance;
