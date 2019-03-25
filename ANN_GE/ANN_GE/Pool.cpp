@@ -15,6 +15,11 @@ Pool::~Pool()
 
 void Pool::runGeneration()
 {
+	std::sort(m_population.begin(), m_population.end(), sortMembersByFitness);
+	for (auto & m : m_population)
+	{
+		std::cout << m.fitness << std::endl;
+	}
 }
 
 Chromosome Pool::getBestChromosome()
@@ -46,7 +51,6 @@ void Pool::genPopulation(Chromosome baseChromosome)
 		for (auto & gene : member.chromosome.getGenes())
 		{
 			gene.weight = randomBetweenTwoFloats(m_minWeight, m_maxWeight);
-			std::cout << "w: " << gene.weight << std::endl;
 		}
 		m_population.push_back(member);
 	}
@@ -54,13 +58,15 @@ void Pool::genPopulation(Chromosome baseChromosome)
 
 void Pool::performCrossovers()
 {
+	// TBI
 }
 
 Chromosome Pool::crossover(Chromosome parent1, Chromosome parent2)
 {
-	return Chromosome();
+	return Chromosome(); // TBI
 }
 
 void Pool::performMutations()
 {
+	// TBI
 }

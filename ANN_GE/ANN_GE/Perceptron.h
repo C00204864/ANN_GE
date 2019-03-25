@@ -23,6 +23,8 @@ public:
 	void setValue(float val);
 	std::string getId();
 	std::map<std::string, Input> & getInputs();
+	float getBiasWeight();
+	void setBiasWeight(float weight);
 	float getOutput();
 	void signalInput();
 	void reset();
@@ -36,6 +38,7 @@ private:
 	int m_inputCounter;
 	float m_threshold;
 	float m_bias;
+	float m_biasWeight;
 	bool m_isDigital;
 };
 

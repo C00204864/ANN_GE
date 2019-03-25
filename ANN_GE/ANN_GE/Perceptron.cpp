@@ -8,6 +8,7 @@ Perceptron::Perceptron(std::string id, float threshold, float bias, bool isOutpu
 	m_bias(bias),
 	m_isDigital(isOutputDigital) 
 {
+	m_biasWeight = 0.f;
 }
 
 Perceptron::~Perceptron() 
@@ -46,6 +47,16 @@ std::map<std::string, Input> & Perceptron::getInputs()
 	return m_inputs;
 }
 
+float Perceptron::getBiasWeight()
+{
+	return m_biasWeight;
+}
+
+void Perceptron::setBiasWeight(float weight)
+{
+	m_biasWeight = weight;
+}
+
 float Perceptron::getOutput()
 {
 	return m_outputVal;
@@ -62,6 +73,7 @@ void Perceptron::signalInput()
 			Input input = pair.second;
 			inputSum += (input.weight * input.node->getOutput());
 		}
+		inputSum += m_bias * m_biasWeight;
 		float sigmoid = fastSigmoid(inputSum);
 		m_outputVal = m_isDigital ? (sigmoid >= m_threshold ? 1.f : 0.f) : sigmoid;
 		for (Perceptron * outputNode : m_outputs)

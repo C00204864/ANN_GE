@@ -2,6 +2,7 @@
 #define POOL_H
 
 #include <vector>
+#include <algorithm>
 #include "Chromosome.h"
 #include "MathUtil.h"
 
@@ -10,6 +11,11 @@ struct Member
 	Chromosome chromosome;
 	float fitness;
 };
+
+static bool sortMembersByFitness(const Member & a, const Member & b)
+{
+	return a.fitness < b.fitness;
+}
 
 class Pool
 {

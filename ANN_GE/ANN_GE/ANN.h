@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include "MathUtil.h"
 #include "Perceptron.h"
 #include "Chromosome.h"
 

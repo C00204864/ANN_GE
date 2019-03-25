@@ -70,6 +70,11 @@ Chromosome ANN::genChromosome()
 			gene.weight = input.second.weight;
 			chromosome.addGene(gene);
 		}
+		Gene gene;
+		gene.toId = node.second->getId();
+		gene.fromId = "bias";
+		gene.weight = node.second->getBiasWeight();
+		chromosome.addGene(gene);
 	}
 	return chromosome;
 }
@@ -81,8 +86,15 @@ void ANN::applyChromosome(Chromosome chromosome)
 		Perceptron * p = m_allNodes[gene.toId];
 		if (nullptr != p)
 		{
-			auto & inputs = p->getInputs();
-			inputs[gene.fromId].weight = gene.weight;
+			if (gene.fromId.find("bias") != std::string::npos)
+			{
+				p->setBiasWeight(gene.weight);
+			}
+			else
+			{
+				auto & inputs = p->getInputs();
+				inputs[gene.fromId].weight = gene.weight;
+			}
 		}
 	}
 }
@@ -94,8 +106,15 @@ void ANN::genFromChromosome(Chromosome chromosome)
 		std::string toId = gene.toId;
 		std::string fromId = gene.fromId;
 		Perceptron * to = m_allNodes.find(toId) == m_allNodes.end() ? createNode(toId) : m_allNodes[toId];
-		Perceptron * from = m_allNodes.find(fromId) == m_allNodes.end() ? createNode(fromId) : m_allNodes[fromId];
-		createConnection(fromId, toId, gene.weight);
+		if (gene.fromId.find("bias") != std::string::npos)
+		{
+			to->setBiasWeight(gene.weight);
+		}
+		else
+		{
+			Perceptron * from = m_allNodes.find(fromId) == m_allNodes.end() ? createNode(fromId) : m_allNodes[fromId];
+			createConnection(fromId, toId, gene.weight);
+		}
 	}
 }
 
