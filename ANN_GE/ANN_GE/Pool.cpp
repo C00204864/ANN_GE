@@ -116,10 +116,9 @@ void Pool::performMutations()
 
 Chromosome Pool::mutate(Chromosome parent)
 {
-	float chance = 0.25f; // Remove Me ---TEMP
 	for (auto & gene : parent.getGenes())
 	{
-		if (randomBetweenTwoFloats(0, 1) < chance)
+		if (randomBetweenTwoFloats(0, 1) < m_mutationChance)
 		{
 			gene.weight = randomBetweenTwoFloats(m_minWeight, m_maxWeight);
 		}

@@ -29,6 +29,7 @@ public:
 	void signalInput();
 	void reset();
 private:
+	float sigmoid(float val);
 	float fastSigmoid(float val);
 
 	std::string m_id;

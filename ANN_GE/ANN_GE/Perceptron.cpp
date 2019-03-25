@@ -89,6 +89,11 @@ void Perceptron::reset()
 	m_outputVal = 0.f;
 }
 
+float Perceptron::sigmoid(float val)
+{
+	return 1 / (1 + pow(2.7, val));
+}
+
 float Perceptron::fastSigmoid(float val)
 {
 	return val / (1 + abs(val));

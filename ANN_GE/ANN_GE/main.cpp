@@ -100,7 +100,7 @@ int main()
 	//ann.createConnection("input", "hidden2");
 	//ann.createConnection("hidden1", "output");
 	//ann.createConnection("hidden2", "output");
-	Pool pool(ann.genChromosome(), 600, 0.2f, -4.5f, 4.5f);
+	Pool pool(ann.genChromosome(), 600, 0.25f, -4.5f, 4.5f);
 	float highest = 0.f;
 	while (highest < 7.5f)
 	{
