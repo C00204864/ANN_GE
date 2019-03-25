@@ -6,9 +6,13 @@ Perceptron::Perceptron(std::string id, float threshold, float bias, bool isOutpu
 	m_inputCounter(0),
 	m_threshold(threshold),
 	m_bias(bias),
-	m_isDigital(isOutputDigital) {}
+	m_isDigital(isOutputDigital) 
+{
+}
 
-Perceptron::~Perceptron() {}
+Perceptron::~Perceptron() 
+{
+}
 
 void Perceptron::addInput(Perceptron * perceptron, float weight)
 {

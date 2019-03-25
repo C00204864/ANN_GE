@@ -1,8 +1,12 @@
 #include "Chromosome.h"
 
-Chromosome::Chromosome() {}
+Chromosome::Chromosome() 
+{
+}
 
-Chromosome::~Chromosome() {}
+Chromosome::~Chromosome() 
+{
+}
 
 void Chromosome::addGene(Gene gene)
 {

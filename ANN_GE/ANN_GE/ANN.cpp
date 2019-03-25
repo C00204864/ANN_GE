@@ -3,9 +3,13 @@
 ANN::ANN(float threshold, float bias, bool isOutputDigital)
 	: m_threshold(threshold),
 	m_bias(bias),
-	m_isDigital(isOutputDigital) {}
+	m_isDigital(isOutputDigital) 
+{
+}
 
-ANN::~ANN() {}
+ANN::~ANN() 
+{
+}
 
 Perceptron * ANN::createInputNode(std::string id)
 {

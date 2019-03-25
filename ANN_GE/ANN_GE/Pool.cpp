@@ -9,7 +9,9 @@ Pool::Pool(Chromosome baseChromosome, int populationSize, float mutationChance, 
 	genPopulation(baseChromosome);
 }
 
-Pool::~Pool() {}
+Pool::~Pool() 
+{
+}
 
 void Pool::runGeneration()
 {
