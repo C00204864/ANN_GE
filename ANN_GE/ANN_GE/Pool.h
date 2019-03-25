@@ -30,6 +30,7 @@ private:
 	void performCrossovers();
 	Chromosome crossover(Chromosome parent1, Chromosome parent2);
 	void performMutations();
+	Chromosome mutate(Chromosome parent);
 
 	int m_populationSize;
 	float m_mutationChance;
