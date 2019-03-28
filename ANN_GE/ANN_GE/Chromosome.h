@@ -2,6 +2,7 @@
 #define CHROMOSOME_H
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -20,6 +21,8 @@ public:
 	void addGene(Gene gene);
 	std::vector<Gene> & getGenes();
 	void print();
+	void saveToTextFile(std::string path);
+	void loadFromTextFile(std::string path);
 private:
 	std::vector<Gene> m_genes;
 };

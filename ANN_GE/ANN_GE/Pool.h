@@ -14,7 +14,7 @@ struct Member
 
 static bool sortMembersByFitness(const Member & a, const Member & b)
 {
-	return a.fitness < b.fitness;
+	return a.fitness > b.fitness;
 }
 
 class Pool
@@ -31,6 +31,7 @@ private:
 	Chromosome crossover(Chromosome parent1, Chromosome parent2);
 	void performMutations();
 	Chromosome mutate(Chromosome parent);
+	Member selectByWeight(bool destructive);
 
 	int m_populationSize;
 	float m_mutationChance;

@@ -16,14 +16,15 @@ Pool::~Pool()
 void Pool::runGeneration()
 {
 	std::sort(m_population.begin(), m_population.end(), sortMembersByFitness);
-	//for (auto & m : m_population)
-	//{
-	//	std::cout << m.fitness << std::endl;
-	//}
-	m_population.erase(m_population.begin() + m_populationSize / 2, m_population.end()); // Population Culled, underperformers are removed
+	std::vector<Member> newPop;
+	for (int i = 0; i < m_populationSize / 2; ++i)
+	{
+		newPop.push_back(selectByWeight(true));
+	}
+	m_population = newPop;
+	std::sort(m_population.begin(), m_population.end(), sortMembersByFitness);
 	performCrossovers();
 	performMutations();
-	//std::cout << "Size: " << m_population.size() << std::endl;
 }
 
 Chromosome Pool::getBestChromosome()
@@ -76,7 +77,7 @@ void Pool::performCrossovers()
 		{
 			Member newChild;
 			newChild.fitness = 0.f;
-			newChild.chromosome = crossover(m_population[rand1].chromosome, m_population[rand2].chromosome);
+			newChild.chromosome = mutate(crossover(m_population[rand1].chromosome, m_population[rand2].chromosome));
 			m_population.push_back(newChild);
 		}
 	}
@@ -91,10 +92,7 @@ Chromosome Pool::crossover(Chromosome parent1, Chromosome parent2)
 	{
 		for (int i = 0; i < parent1Genes.size(); --i)
 		{
-			if (randomBetweenTwoInts(0,1) < 1)
-			{
-				child.addGene(randomBetweenTwoInts(0, 1) < 1 ? parent1Genes.at(i) : parent2Genes.at(i));
-			}
+			child.addGene(randomBetweenTwoInts(0, 1) < 1 ? parent1Genes.at(i) : parent2Genes.at(i));
 		}
 		return child;
 	}
@@ -124,4 +122,28 @@ Chromosome Pool::mutate(Chromosome parent)
 		}
 	}
 	return parent;
+}
+
+Member Pool::selectByWeight(bool destructive)
+{
+	float totalSum = 0.f;
+	for (auto & member : m_population)
+	{
+		totalSum += member.fitness;
+	}
+	float randInFitnessSum = randomBetweenTwoFloats(0, totalSum);
+	float currSum = 0.f;
+	for (int i = 0; i < m_population.size(); ++i)
+	{
+		Member member = m_population.at(i);
+		currSum += member.fitness;
+		if (currSum > randInFitnessSum)
+		{
+			if (destructive)
+			{
+				m_population.erase(m_population.begin() + i);
+			}
+			return member;
+		}
+	}
 }
