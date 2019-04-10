@@ -1,5 +1,14 @@
 #include "Pool.h"
 
+/// <summary>
+/// Genetic Algorithm pool constructor function
+/// </summary>
+/// <param name="baseChromosome">Chromosome from which to generate a population</param>
+/// <param name="populationSize">Size of the desired population</param>
+/// <param name="crossoverChance">Chance for crossover in genetic algorithm</param>
+/// <param name="mutationChance">Chance for mutation in genetic algorithm</param>
+/// <param name="minWeight">Minimum weight for the ANN</param>
+/// <param name="maxWeight">Maximum weight for the ANN</param>
 Pool::Pool(Chromosome baseChromosome, int populationSize, float crossoverChance, float mutationChance, float minWeight, float maxWeight)
 	: m_populationSize(populationSize),
 	m_crossoverChance(crossoverChance),
@@ -10,10 +19,17 @@ Pool::Pool(Chromosome baseChromosome, int populationSize, float crossoverChance,
 	genPopulation(baseChromosome);
 }
 
+/// <summary>
+/// Pool destructor function
+/// </summary>
 Pool::~Pool() 
 {
 }
 
+/// <summary>
+/// Run a generation of the genetic algorithm
+/// </summary>
+/// <param name="elitism">Elitism value to be used for the generation</param>
 void Pool::runGeneration(int elitism)
 {
 	bool success = false;
@@ -65,6 +81,10 @@ void Pool::runGeneration(int elitism)
 	performMutations();
 }
 
+/// <summary>
+/// Get the best chromosome in a population
+/// </summary>
+/// <returns>Best chromosome in the population</returns>
 Chromosome Pool::getBestChromosome()
 {
 	float bestFitness = -1.f;
@@ -79,11 +99,19 @@ Chromosome Pool::getBestChromosome()
 	return bestChromosome;
 }
 
+/// <summary>
+/// Get all individuals in the population
+/// </summary>
+/// <returns>vector of population members</returns>
 std::vector<Member> & Pool::getMembers()
 {
 	return m_population;
 }
 
+/// <summary>
+/// Generate a population based on a chromosome for structure
+/// </summary>
+/// <param name="baseChromosome">Chromosome from which to base population off</param>
 void Pool::genPopulation(Chromosome baseChromosome)
 {
 	for (int i = 0; i < m_populationSize; ++i)
@@ -99,6 +127,9 @@ void Pool::genPopulation(Chromosome baseChromosome)
 	}
 }
 
+/// <summary>
+/// Perform crossovers for genetic algorithm
+/// </summary>
 void Pool::performCrossovers()
 {
 	int currentSize = m_population.size();
@@ -111,6 +142,12 @@ void Pool::performCrossovers()
 	}
 }
 
+/// <summary>
+/// Crossover poeration
+/// </summary>
+/// <param name="parent1">First parent for crossover</param>
+/// <param name="parent2">Second parent for crossover</param>
+/// <returns>New child chromosome</returns>
 Chromosome Pool::crossover(Chromosome parent1, Chromosome parent2)
 {
 	auto & parent1Genes = parent1.getGenes();
@@ -127,6 +164,9 @@ Chromosome Pool::crossover(Chromosome parent1, Chromosome parent2)
 	return parent1;
 }
 
+/// <summary>
+/// Perform mutations for genetic algorithm
+/// </summary>
 void Pool::performMutations()
 {
 	int currentSize = m_population.size();
@@ -140,6 +180,11 @@ void Pool::performMutations()
 	}
 }
 
+/// <summary>
+/// Mutation operation for genetic algorithm
+/// </summary>
+/// <param name="parent">Parent chromosome for mutation</param>
+/// <returns>New child chromosome</returns>
 Chromosome Pool::mutate(Chromosome parent)
 {
 	for (auto & gene : parent.getGenes())
@@ -152,6 +197,11 @@ Chromosome Pool::mutate(Chromosome parent)
 	return parent;
 }
 
+/// <summary>
+/// Select a chromosome with varying likliehood based on chromosome fitness
+/// </summary>
+/// <param name="destructive">Bool representing whether or not we need the choice to be unique</param>
+/// <returns>Random population member</returns>
 Member Pool::selectByWeight(bool destructive)
 {
 	float totalSum = 0.f;

@@ -1,5 +1,11 @@
 #include "ANN.h"
 
+/// <summary>
+/// Constructor function for the ANN object
+/// </summary>
+/// <param name="threshold">Threshold value for each perceptron</param>
+/// <param name="bias">Bias value to be used by perceptrons</param>
+/// <param name="isOutputDigital">Whether or not to cast perceptron outputs to 1/0 or to leave them as continuous values</param>
 ANN::ANN(float threshold, float bias, bool isOutputDigital)
 	: m_threshold(threshold),
 	m_bias(bias),
@@ -7,6 +13,9 @@ ANN::ANN(float threshold, float bias, bool isOutputDigital)
 {
 }
 
+/// <summary>
+/// ANN Destructor function
+/// </summary>
 ANN::~ANN() 
 {
 	for (auto & node : m_allNodes)
@@ -15,6 +24,11 @@ ANN::~ANN()
 	}
 }
 
+/// <summary>
+/// Function used to create input nodes for the ANN
+/// </summary>
+/// <param name="id">Id string for the new perceptron</param>
+/// <returns></returns>
 Perceptron * ANN::createInputNode(std::string id)
 {
 	Perceptron * inputNode = createNode(id);
@@ -22,6 +36,11 @@ Perceptron * ANN::createInputNode(std::string id)
 	return inputNode;
 }
 
+/// <summary>
+/// Function used to create output nodes for the ANN
+/// </summary>
+/// <param name="id">Id string for the new perceptron</param>
+/// <returns></returns>
 Perceptron * ANN::createOutputNode(std::string id)
 {
 	Perceptron * outputNode = createNode(id);
@@ -29,11 +48,22 @@ Perceptron * ANN::createOutputNode(std::string id)
 	return outputNode;
 }
 
+/// <summary>
+/// Function used to create a connection between two nodes
+/// </summary>
+/// <param name="fromId">Id of first perceptron of the connection</param>
+/// <param name="toId">Id of the second perceptron of the connection</param>
 void ANN::createConnection(std::string fromId, std::string toId)
 {
 	createConnection(fromId, toId, 0.f);
 }
 
+/// <summary>
+/// Function used to create a connection between two nodes with a defined weight
+/// </summary>
+/// <param name="fromId">Id of first perceptron of the connection</param>
+/// <param name="toId">Id of the second perceptron of the connection</param>
+/// <param name="weight">Connection weight</param>
 void ANN::createConnection(std::string fromId, std::string toId, float weight)
 {
 	Perceptron * from = m_allNodes[fromId];
@@ -45,21 +75,37 @@ void ANN::createConnection(std::string fromId, std::string toId, float weight)
 	}
 }
 
+/// <summary>
+/// Return all the nodes/perceptrons in the ANN
+/// </summary>
+/// <returns>Map containing all perceptrons by id</returns>
 std::map<std::string, Perceptron*> ANN::getAllNodes()
 {
 	return m_allNodes;
 }
 
+/// <summary>
+/// Return all the input nodes/perceptrons in the ANN
+/// </summary>
+/// <returns>Map containing all input perceptrons by id</returns>
 std::map<std::string, Perceptron*> ANN::getInputNodes()
 {
 	return m_inputNodes;
 }
 
+/// <summary>
+/// Return all the output nodes/perceptrons in the ANN
+/// </summary>
+/// <returns>Map containing all output perceptrons by id</returns>
 std::map<std::string, Perceptron*> ANN::getOutputNodes()
 {
 	return m_outputNodes;
 }
 
+/// <summary>
+/// Create a chromosome that represents the ANN
+/// </summary>
+/// <returns>Chromosome representing the ANN</returns>
 Chromosome ANN::genChromosome()
 {
 	Chromosome chromosome;
@@ -83,6 +129,10 @@ Chromosome ANN::genChromosome()
 	return chromosome;
 }
 
+/// <summary>
+/// Apply a chromosome to the ANN
+/// </summary>
+/// <param name="chromosome">Chromosome to be applied</param>
 void ANN::applyChromosome(Chromosome chromosome)
 {
 	for (auto & gene : chromosome.getGenes())
@@ -103,6 +153,10 @@ void ANN::applyChromosome(Chromosome chromosome)
 	}
 }
 
+/// <summary>
+/// Generate the ANN from a chromosome
+/// </summary>
+/// <param name="chromosome">Chromosome from which to generate ANN</param>
 void ANN::genFromChromosome(Chromosome chromosome)
 {
 	for (auto & node : m_allNodes)
@@ -128,6 +182,9 @@ void ANN::genFromChromosome(Chromosome chromosome)
 	}
 }
 
+/// <summary>
+/// Reset the ANN perceptrons
+/// </summary>
 void ANN::reset()
 {
 	for (auto & node : m_allNodes)
@@ -136,6 +193,11 @@ void ANN::reset()
 	}
 }
 
+/// <summary>
+/// Create a perceptron in the ANN
+/// </summary>
+/// <param name="id">Perceptron id string</param>
+/// <returns>Pointer to the new perceptron</returns>
 Perceptron * ANN::createNode(std::string id)
 {
 	Perceptron * node = new Perceptron(id, m_threshold, m_bias, m_isDigital);

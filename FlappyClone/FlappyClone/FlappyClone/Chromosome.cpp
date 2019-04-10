@@ -1,23 +1,40 @@
 #include "Chromosome.h"
 
+/// <summary>
+/// Chromosome constructor function
+/// </summary>
 Chromosome::Chromosome() 
 {
 }
 
+/// <summary>
+/// Chromosome destructor function
+/// </summary>
 Chromosome::~Chromosome() 
 {
 }
 
+/// <summary>
+/// Function used to add a gene to the chromosome
+/// </summary>
+/// <param name="gene">Gene to add to the chromosome</param>
 void Chromosome::addGene(Gene gene)
 {
 	m_genes.push_back(gene);
 }
 
+/// <summary>
+/// Functio used to get all the genes in the chromosome
+/// </summary>
+/// <returns>Vector of Gene objects</returns>
 std::vector<Gene> & Chromosome::getGenes()
 {
 	return m_genes;
 }
 
+/// <summary>
+/// Print the contents of the chromosome to the console
+/// </summary>
 void Chromosome::print()
 {
 	for (auto & gene : m_genes)
@@ -26,6 +43,10 @@ void Chromosome::print()
 	}
 }
 
+/// <summary>
+/// Save a chromosome to a text file
+/// </summary>
+/// <param name="path">String path to save chromosome to</param>
 void Chromosome::saveToTextFile(std::string path)
 {
 	std::ofstream fileStream;
@@ -37,6 +58,10 @@ void Chromosome::saveToTextFile(std::string path)
 	fileStream.close();
 }
 
+/// <summary>
+/// Load a chromosome from a text file
+/// </summary>
+/// <param name="path">String path to load a chromosome from</param>
 void Chromosome::loadFromTextFile(std::string path)
 {
 	m_genes.clear();
