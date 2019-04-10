@@ -1,0 +1,23 @@
+﻿  Game.cpp
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(148): warning C4018: '<': signed/unsigned mismatch
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(213): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(217): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(221): warning C4018: '<': signed/unsigned mismatch
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(260): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(262): warning C4244: 'argument': conversion from 'float' to 'const int', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(263): warning C4018: '>': signed/unsigned mismatch
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(267): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(273): warning C4018: '>': signed/unsigned mismatch
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(297): warning C4018: '<': signed/unsigned mismatch
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(328): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(328): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(331): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(331): warning C4244: 'argument': conversion from 'const int' to 'float', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(341): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(410): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(424): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(441): warning C4244: 'argument': conversion from 'float' to 'sf::Uint8', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(501): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(524): warning C4305: 'initializing': truncation from 'int' to 'float'
+c:\users\liamh\desktop\flappyclone\flappyclone\game.cpp(525): warning C4018: '<': signed/unsigned mismatch
+  FlappyClone.vcxproj -> C:\Users\liamh\Desktop\FlappyClone\Debug\FlappyClone.exe
