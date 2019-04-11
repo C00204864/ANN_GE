@@ -137,8 +137,15 @@ void Pool::performCrossovers()
 	{
 		Member newChild;
 		newChild.fitness = 0.f;
-		newChild.chromosome = mutate(crossover(selectByWeight(false).chromosome, selectByWeight(false).chromosome));
-		m_population.push_back(newChild);
+		if (randomBetweenTwoInts(0, 1) < 0.9f)
+		{
+			newChild.chromosome = mutate(crossover(selectByWeight(false).chromosome, selectByWeight(false).chromosome));
+			m_population.push_back(newChild);
+		}
+		else
+		{
+			m_population.push_back(selectByWeight(false));
+		}
 	}
 }
 

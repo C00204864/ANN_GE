@@ -176,7 +176,7 @@ void Game::feedForwardANN()
 	PipePair pair = getClosestPipePair();
 	auto nodes = m_ann->getAllNodes();
 	m_ann->reset();
-	if (m_actualVisionMode)
+	if (nodes.size() > 9)
 	{
 		nodes["input1"]->setValue(m_bird.getY() / GAME_SCREEN_HEIGHT);
 		nodes["input2"]->setValue(m_visionRects.at(0)->colliding);
@@ -371,13 +371,30 @@ void Game::renderInputWindow(ImGuiWindowFlags window_flags)
 		m_generations = 0;
 		reset();
 		setupANN();
+		for(auto & i : m_recentMax)
+		{
+			i = 0.f;
+		}
+		m_highestFitness = 0.f;
+		for (auto & i : m_recenteAvg)
+		{
+			i = 0.f;
+		}
+		m_highestAverage = 0.f;
+		m_inputSkipGenerations = false;
+		m_inputGenerationsToSkip = 0;
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Run Best Individual"))
 	{
 		Chromosome c;
-		c.loadFromTextFile("Best_Individual.txt");
+		c.loadFromTextFile("Best_Chromosome.txt");
+		m_ann->reset();
+		delete m_ann;
+		m_ann = new ANN(0.5f, 1.f, false);
 		m_ann->genFromChromosome(c);
+		m_ann->applyChromosome(c);
+		reset();
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Run Saved Individual"))
@@ -385,7 +402,11 @@ void Game::renderInputWindow(ImGuiWindowFlags window_flags)
 		Chromosome c;
 		c.loadFromTextFile("Saved_Individual.txt");
 		m_ann->reset();
+		delete m_ann;
+		m_ann = new ANN(0.5f, 1.f, false);
 		m_ann->genFromChromosome(c);
+		m_ann->applyChromosome(c);
+		reset();
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Save Individual"))

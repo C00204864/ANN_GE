@@ -159,11 +159,11 @@ void ANN::applyChromosome(Chromosome chromosome)
 /// <param name="chromosome">Chromosome from which to generate ANN</param>
 void ANN::genFromChromosome(Chromosome chromosome)
 {
-	for (auto & node : m_allNodes)
-	{
-		delete node.second;
-	}
-	m_allNodes.clear();
+	//for (auto & node : m_allNodes)
+	//{
+	//	delete node.second;
+	//}
+	//m_allNodes.clear();
 	for (auto & gene : chromosome.getGenes())
 	{
 		std::string toId = gene.toId;
@@ -189,7 +189,10 @@ void ANN::reset()
 {
 	for (auto & node : m_allNodes)
 	{
-		node.second->reset();
+		if (nullptr != node.second)
+		{
+			node.second->reset();
+		}
 	}
 }
 
