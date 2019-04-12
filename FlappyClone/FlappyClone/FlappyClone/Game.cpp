@@ -330,7 +330,7 @@ void Game::renderInputWindow(ImGuiWindowFlags window_flags)
 	renderTooltip("The total size of the population");
 	renderColor(OPT_ELITISM, m_inputElitism);
 	ImGui::SliderInt("Elitism Value", &m_inputElitism, 0, 20);
-	renderTooltip("The number of top indivisuals to accept before including chance");
+	renderTooltip("The number of top individuals to accept before including chance");
 	renderColor(OPT_CROSSOVER, m_inputCrossoverRate);
 	ImGui::SliderFloat("Crossover Rate", &m_inputCrossoverRate, 0.0f, 1.0f, "Crossover Rate = %.3f");
 	renderTooltip("The crossover rate of the population");

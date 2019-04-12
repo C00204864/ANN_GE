@@ -6,6 +6,10 @@
 #include <string>
 #include <vector>
 
+/// <summary>
+/// Gene represents one single connection in an ANN
+/// to id, from id and weighting
+/// </summary>
 struct Gene
 {
 	std::string toId;
@@ -13,6 +17,10 @@ struct Gene
 	float weight;
 };
 
+/// <summary>
+/// Chromosome represents a collection of genes that 
+/// follows the structure of a neural network
+/// </summary>
 class Chromosome
 {
 public:

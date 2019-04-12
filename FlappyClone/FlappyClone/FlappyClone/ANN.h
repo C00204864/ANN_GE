@@ -9,6 +9,10 @@
 #include "Perceptron.h"
 #include "Chromosome.h"
 
+/// <summary>
+/// ANN class represents artificial neural network as
+/// a structure containing linked perceptrons
+/// </summary>
 class ANN
 {
 public:

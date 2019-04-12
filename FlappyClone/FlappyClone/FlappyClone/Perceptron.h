@@ -5,14 +5,22 @@
 #include <vector>
 #include <map>
 
-class Perceptron;
+class Perceptron; // Predeclaration for circular references
 
+/// <summary>
+/// Input struct represents input node and weight
+/// as one unit
+/// </summary>
 struct Input
 {
 	Perceptron * node;
 	float weight;
 };
 
+/// <summary>
+/// Perceptronclass  represents a single node in 
+/// an artificial neural network
+/// </summary>
 class Perceptron
 {
 public:
