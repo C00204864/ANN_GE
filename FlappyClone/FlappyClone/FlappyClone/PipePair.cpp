@@ -1,5 +1,12 @@
 #include "PipePair.h"
 
+/// <summary>
+/// PipePair constructor function
+/// </summary>
+/// <param name="xPositionIn">X position of the pipe pair</param>
+/// <param name="screenHeight">Height of the screen</param>
+/// <param name="pipeCount">Total number of pipes</param>
+/// <param name="gapBetween">The gap between each pipe</param>
 PipePair::PipePair(float xPositionIn, int screenHeight, int pipeCount, float gapBetween)
 	: m_xPosition(xPositionIn),
 	m_screenHeight(screenHeight),
@@ -11,10 +18,16 @@ PipePair::PipePair(float xPositionIn, int screenHeight, int pipeCount, float gap
 	randomise();
 }
 
+/// <summary>
+/// PipePair class destructor
+/// </summary>
 PipePair::~PipePair()
 {
 }
 
+/// <summary>
+/// PipePair update function
+/// </summary>
 void PipePair::update()
 {
 	movePipe(m_upperPipe);
@@ -29,18 +42,29 @@ void PipePair::update()
 	}
 }
 
+/// <summary>
+/// PipePair window render function
+/// </summary>
+/// <param name="window">Window to draw to</param>
 void PipePair::render(sf::RenderWindow & window)
 {
 	window.draw(m_upperPipe);
 	window.draw(m_lowerPipe);
 }
 
+/// <summary>
+/// PipePair texture render function
+/// </summary>
+/// <param name="renderTexture">Texture to draw to</param>
 void PipePair::renderToTexture(sf::RenderTexture & renderTexture)
 {
 	renderTexture.draw(m_upperPipe);
 	renderTexture.draw(m_lowerPipe);
 }
 
+/// <summary>
+/// Function randomises the height of the gap between the pair of pipes
+/// </summary>
 void PipePair::randomise()
 {
 	m_gapYPosition = (rand() % (m_screenHeight - 400));
@@ -50,6 +74,11 @@ void PipePair::randomise()
 	m_lowerPipe.setSize(sf::Vector2f(RECT_WIDTH, m_screenHeight - m_gapYPosition));
 }
 
+/// <summary>
+/// Function used to check for a collision between a pipe pair 
+/// </summary>
+/// <param name="shape">shape against which to check for a collision</param>
+/// <returns>Boolean represnting whether or not there is a collision</returns>
 bool PipePair::checkCollision(sf::FloatRect shape)
 {
 	if (m_upperPipe.getGlobalBounds().intersects(shape)
@@ -60,16 +89,28 @@ bool PipePair::checkCollision(sf::FloatRect shape)
 	return false;
 }
 
+/// <summary>
+/// Function gets the X position of the pipe pair
+/// </summary>
+/// <returns></returns>
 float PipePair::getX()
 {
 	return m_xPosition;
 }
 
+/// <summary>
+/// Function gets the Y position of the gap between the pipe pair
+/// </summary>
+/// <returns>The height of the gap</returns>
 float PipePair::getGapY()
 {
 	return m_gapYPosition;
 }
 
+/// <summary>
+/// Fuction used to move the pipe pair rect
+/// </summary>
+/// <param name="rect">Reference to the pipe pair ractangle</param>
 void PipePair::movePipe(sf::RectangleShape & rect)
 {
 	sf::Vector2f pos = rect.getPosition();

@@ -4,6 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include "Bird.h"
 
+/// <summary>
+/// Class represents a piar of pipes for the Flappy Bird game
+/// </summary>
 class PipePair
 {
 public:

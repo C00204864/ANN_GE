@@ -171,6 +171,9 @@ void Game::update(sf::Time t_deltaTime)
 	}
 }
 
+/// <summary>
+/// Get output values from the ANN from specific inputs
+/// </summary>
 void Game::feedForwardANN()
 {
 	PipePair pair = getClosestPipePair();
@@ -206,6 +209,11 @@ void Game::feedForwardANN()
 	}
 }
 
+/// <summary>
+/// Once a bird has died, assign it a fitness score
+/// and get the next member of the population and 
+/// run it
+/// </summary>
 void Game::nextAi()
 {
 	auto & members = m_pool->getMembers();
@@ -231,6 +239,10 @@ void Game::nextAi()
 	}
 }
 
+/// <summary>
+/// Function used once all population members have a fitness score
+/// the next generation is created
+/// </summary>
 void Game::nextGeneration()
 {
 	handleData();
@@ -253,6 +265,9 @@ void Game::nextGeneration()
 	m_ann->applyChromosome(members.at(m_memberNo).chromosome);
 }
 
+/// <summary>
+/// 
+/// </summary>
 void Game::handleData()
 {
 	if (m_currentMax > m_highestFitness)
@@ -306,6 +321,9 @@ void Game::render()
 	}
 }
 
+/// <summary>
+/// Render loop for the GUI
+/// </summary>
 void Game::renderImgui()
 {
 	m_window.clear(sf::Color::Black);
@@ -317,6 +335,10 @@ void Game::renderImgui()
 	m_window.display();
 }
 
+/// <summary>
+/// Render loop for the Input Parameters windows
+/// </summary>
+/// <param name="window_flags">Window parameters</param>
 void Game::renderInputWindow(ImGuiWindowFlags window_flags)
 {
 	ImGui::SetNextWindowPos(sf::Vector2f(m_parameterPos.x * m_screenRatioX, m_parameterPos.y * m_screenRatioY));
@@ -417,6 +439,10 @@ void Game::renderInputWindow(ImGuiWindowFlags window_flags)
 	ImGui::End();
 }
 
+/// <summary>
+/// Render output window
+/// </summary>
+/// <param name="window_flags">Window parameters</param>
 void Game::renderOutputWindow(ImGuiWindowFlags window_flags)
 {
 	ImGui::SetNextWindowPos(sf::Vector2f(m_outputPos.x * m_screenRatioX, m_outputPos.y * m_screenRatioY));
@@ -452,6 +478,11 @@ void Game::renderOutputWindow(ImGuiWindowFlags window_flags)
 	ImGui::End();
 }
 
+/// <summary>
+/// Render a GUI color square
+/// </summary>
+/// <param name="optimal"></param>
+/// <param name="val"></param>
 void Game::renderColor(float optimal, float val)
 {
 	float multiple = val / optimal;
@@ -463,6 +494,10 @@ void Game::renderColor(float optimal, float val)
 	ImGui::SameLine();
 }
 
+/// <summary>
+/// Render a GUI tooltip
+/// </summary>
+/// <param name="text">tooltip text</param>
 void Game::renderTooltip(std::string text)
 {
 	ImGui::SameLine(); 
@@ -478,6 +513,9 @@ void Game::renderTooltip(std::string text)
 	}
 }
 
+/// <summary>
+/// Check for collisons between pipes, birds and vision rectangles
+/// </summary>
 void Game::collisionCheck()
 {
 	sf::FloatRect birdRect = m_bird.getShape().getGlobalBounds();
@@ -506,6 +544,9 @@ void Game::collisionCheck()
 	}
 }
 
+/// <summary>
+/// Function resets the game
+/// </summary>
 void Game::reset()
 {
 	m_score = 0;
@@ -522,6 +563,9 @@ void Game::reset()
 	srand(time(NULL));
 }
 
+/// <summary>
+/// Setup ANN and Genetic Algorithm
+/// </summary>
 void Game::setupANN()
 {
 	m_ann = new ANN(0.5f, 1.f, false);
@@ -539,6 +583,10 @@ void Game::setupANN()
 	m_ann->applyChromosome(m_pool->getMembers().at(0).chromosome);
 }
 
+/// <summary>
+/// Function used to get the pipe pair that is closest to the bird
+/// </summary>
+/// <returns></returns>
 PipePair Game::getClosestPipePair()
 {
 	int closestIndex = 0;

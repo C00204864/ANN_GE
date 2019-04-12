@@ -17,12 +17,18 @@
 #include "ANN.h"
 #include "Pool.h"
 
+/// <summary>
+/// VisionRect struct used for neural network input
+/// </summary>
 struct VisionRect
 {
 	bool colliding;
 	sf::RectangleShape rect;
 };
 
+/// <summary>
+/// Main game class
+/// </summary>
 class Game
 {
 public:

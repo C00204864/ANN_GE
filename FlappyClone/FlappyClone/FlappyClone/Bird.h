@@ -3,6 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 
+/// <summary>
+/// Class representing the bird for the game
+/// </summary>
 class Bird
 {
 public:
