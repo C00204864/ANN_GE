@@ -24,6 +24,7 @@ struct Gene
 class Chromosome
 {
 public:
+	// Public Functions
 	Chromosome();
 	~Chromosome();
 	void addGene(Gene gene);
@@ -32,6 +33,7 @@ public:
 	void saveToTextFile(std::string path);
 	void loadFromTextFile(std::string path);
 private:
+	// Private Members
 	std::vector<Gene> m_genes;
 };
 

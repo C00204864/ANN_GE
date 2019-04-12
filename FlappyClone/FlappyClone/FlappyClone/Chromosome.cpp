@@ -65,7 +65,7 @@ void Chromosome::saveToTextFile(std::string path)
 void Chromosome::loadFromTextFile(std::string path)
 {
 	m_genes.clear();
-	std::string delimiter = ",";
+	std::string delimiter = ","; // Loading genes from CSV text file
 	int pos = 0;
 	int count = 0;
 	std::string output;
@@ -78,6 +78,7 @@ void Chromosome::loadFromTextFile(std::string path)
 		fileStream >> output;
 		if ("" != output)
 		{
+			// Get Values
 			while ((pos = output.find(delimiter)) != std::string::npos) 
 			{
 				value[count] = output.substr(0, pos);
@@ -86,9 +87,12 @@ void Chromosome::loadFromTextFile(std::string path)
 			}
 			value[2] = output;
 			Gene loadedGene;
+
+			// Assign Values
 			loadedGene.fromId = value[0];
 			loadedGene.toId = value[1];
 			loadedGene.weight = std::stof(value[2]);
+
 			m_genes.push_back(loadedGene);
 			count = 0;
 		}

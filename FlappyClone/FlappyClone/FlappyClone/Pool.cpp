@@ -16,7 +16,7 @@ Pool::Pool(Chromosome baseChromosome, int populationSize, float crossoverChance,
 	m_minWeight(minWeight),
 	m_maxWeight(maxWeight)
 {
-	genPopulation(baseChromosome);
+	genPopulation(baseChromosome); // Create a population based off chromosome provided
 }
 
 /// <summary>
@@ -30,33 +30,18 @@ Pool::~Pool()
 /// Run a generation of the genetic algorithm
 /// </summary>
 /// <param name="elitism">Elitism value to be used for the generation</param>
-void Pool::runGeneration(int elitism)
+void Pool::runGeneration(int elitism, int successThreshold)
 {
 	bool success = false;
-	//for(auto & member : m_population)
-	//{
-	//	if (member.fitness > 0)
-	//	{
-	//		success = true;
-	//		break;
-	//	}
-	//}
-	//if (!success)
-	//{
-	//	Chromosome c = m_population.at(0).chromosome;
-	//	m_population.clear();
-	//	genPopulation(c);
-	//	return;
-	//}
 	for (auto & member : m_population)
 	{
-		if (member.fitness > 45)
+		if (member.fitness > successThreshold)
 		{
 			success = true;
 			break;
 		}
 	}
-	if (!success)
+	if (!success) // If no success is reached, none of the population have any viabilty and so we generate a new population
 	{
 		Chromosome c = m_population.at(0).chromosome;
 		m_population.clear();
@@ -65,18 +50,17 @@ void Pool::runGeneration(int elitism)
 	}
 	std::sort(m_population.begin(), m_population.end(), sortMembersByFitness);
 	std::vector<Member> newPop;
-	for (int i = 0; i < elitism; ++i)
+	for (int i = 0; i < elitism; ++i) // We keep some members based on elitism
 	{
 		newPop.push_back(m_population.at(i));
 		m_population.erase(m_population.begin() + i);
 	}
-	for (int i = 0; i < (m_populationSize / 2) - elitism; ++i)
+	for (int i = 0; i < (m_populationSize / 2) - elitism; ++i) // Then we select other members by chance skewed by their fitness
 	{
 		newPop.push_back(selectByWeight(true));
 	}
 	m_population = newPop;
-	//m_population.erase(m_population.begin() + m_populationSize / 2, m_population.end());
-	//std::sort(m_population.begin(), m_population.end(), sortMembersByFitness);
+	// Perform genetic operations on the population
 	performCrossovers();
 	performMutations();
 }
@@ -226,7 +210,7 @@ Member Pool::selectByWeight(bool destructive)
 		{
 			if (destructive)
 			{
-				m_population.erase(m_population.begin() + i);
+				m_population.erase(m_population.begin() + i); // If destructive, then remove individuals that have already been picked
 			}
 			return member;
 		}

@@ -1,3 +1,8 @@
+/*
+	Created by Liam Hickey (C00204864)
+	Fourth Year Project
+*/
+
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
 #ifdef _DEBUG

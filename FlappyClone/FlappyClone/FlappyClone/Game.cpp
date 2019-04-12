@@ -27,6 +27,7 @@ Game::Game() :
 	m_inputShowVisionColliders{ true },
 	m_inputDrawGame{ true },
 	m_actualVisionMode{ m_inputVisionMode },
+	m_isRunningSavedIndividual{ false },
 	m_currentAverage{ 0 },
 	m_currentMax{ 0 },
 	m_highestFitness{ 0 },
@@ -162,7 +163,12 @@ void Game::update(sf::Time t_deltaTime)
 	}
 	if (!m_bird.isAlive())
 	{
-		if (m_trainAi)
+		if (m_isRunningSavedIndividual)
+		{
+			resetANN();
+			m_isRunningSavedIndividual = false;
+		}
+		else if (m_trainAi)
 		{
 			nextAi();
 		}
@@ -252,7 +258,7 @@ void Game::nextGeneration()
 	++m_generations;
 	std::cout << m_generations << std::endl;
 	//srand(time(NULL));
-	m_pool->runGeneration(m_inputElitism);
+	m_pool->runGeneration(m_inputElitism, 45);
 	if (m_inputSkipGenerations && m_inputGenerationsToSkip > 0)
 	{
 		if (--m_inputGenerationsToSkip <= 0)
@@ -386,25 +392,7 @@ void Game::renderInputWindow(ImGuiWindowFlags window_flags)
 	ImGui::SameLine();
 	if (ImGui::Button("Reset"))
 	{
-		delete m_pool;
-		delete m_ann;
-		m_actualVisionMode = m_inputVisionMode;
-		m_memberNo = 0;
-		m_generations = 0;
-		reset();
-		setupANN();
-		for(auto & i : m_recentMax)
-		{
-			i = 0.f;
-		}
-		m_highestFitness = 0.f;
-		for (auto & i : m_recenteAvg)
-		{
-			i = 0.f;
-		}
-		m_highestAverage = 0.f;
-		m_inputSkipGenerations = false;
-		m_inputGenerationsToSkip = 0;
+		resetANN();
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Run Best Individual"))
@@ -417,6 +405,7 @@ void Game::renderInputWindow(ImGuiWindowFlags window_flags)
 		m_ann->genFromChromosome(c);
 		m_ann->applyChromosome(c);
 		reset();
+		m_isRunningSavedIndividual = true;
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Run Saved Individual"))
@@ -429,6 +418,7 @@ void Game::renderInputWindow(ImGuiWindowFlags window_flags)
 		m_ann->genFromChromosome(c);
 		m_ann->applyChromosome(c);
 		reset();
+		m_isRunningSavedIndividual = true;
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Save Individual"))
@@ -549,6 +539,7 @@ void Game::collisionCheck()
 /// </summary>
 void Game::reset()
 {
+	m_isRunningSavedIndividual = false;
 	m_score = 0;
 	m_bird.setPosition(sf::Vector2f(250, 400));
 	m_pipePairs.clear();
@@ -581,6 +572,32 @@ void Game::setupANN()
 	m_ann->genFromChromosome(seed);
 	m_pool = new Pool(m_ann->genChromosome(), m_inputPopulation, m_inputCrossoverRate, m_inputMutationRate, -1.5f, 1.5f);
 	m_ann->applyChromosome(m_pool->getMembers().at(0).chromosome);
+}
+
+/// <summary>
+/// Reset the ANN and genetic algorithm
+/// </summary>
+void Game::resetANN()
+{
+	delete m_pool;
+	delete m_ann;
+	m_actualVisionMode = m_inputVisionMode;
+	m_memberNo = 0;
+	m_generations = 0;
+	reset();
+	setupANN();
+	for (auto & i : m_recentMax)
+	{
+		i = 0.f;
+	}
+	m_highestFitness = 0.f;
+	for (auto & i : m_recenteAvg)
+	{
+		i = 0.f;
+	}
+	m_highestAverage = 0.f;
+	m_inputSkipGenerations = false;
+	m_inputGenerationsToSkip = 0;
 }
 
 /// <summary>

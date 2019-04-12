@@ -34,12 +34,14 @@ static bool sortMembersByFitness(const Member & a, const Member & b)
 class Pool
 {
 public:
+	// Public Functions
 	Pool(Chromosome baseChromosome, int populationSize, float crossoverChance, float mutationChance, float minWeight, float maxWeight);
 	~Pool();
-	void runGeneration(int elitism);
+	void runGeneration(int elitism, int successThreshold);
 	Chromosome getBestChromosome();
 	std::vector<Member> & getMembers();
 private:
+	// Private Functions
 	void genPopulation(Chromosome baseChromosome);
 	void performCrossovers();
 	Chromosome crossover(Chromosome parent1, Chromosome parent2);
@@ -47,6 +49,7 @@ private:
 	Chromosome mutate(Chromosome parent);
 	Member selectByWeight(bool destructive);
 
+	// Private Members
 	int m_populationSize;
 	float m_crossoverChance;
 	float m_mutationChance;

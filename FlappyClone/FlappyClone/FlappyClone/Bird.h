@@ -9,6 +9,7 @@
 class Bird
 {
 public:
+	// Public Functions
 	Bird(float xIn, float yIn);
 	~Bird();
 	void update();
@@ -23,6 +24,7 @@ public:
 	void setAliveStatus(bool status);
 	float getY();
 private:
+	// Private Members
 	sf::RectangleShape m_shape;
 	float m_yVelocity = 0;
 	const float WIDTH = 30.f;

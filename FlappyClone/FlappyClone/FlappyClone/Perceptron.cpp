@@ -112,7 +112,7 @@ float Perceptron::getOutput()
 void Perceptron::signalInput()
 {
 	++m_inputCounter;
-	if (m_inputCounter == m_inputs.size())
+	if (m_inputCounter == m_inputs.size()) // When all perceptron inputs are ready
 	{
 		float inputSum = 0.f;
 		for (auto & pair : m_inputs)
@@ -120,12 +120,12 @@ void Perceptron::signalInput()
 			Input input = pair.second;
 			inputSum += (input.weight * input.node->getOutput());
 		}
-		inputSum += m_bias * m_biasWeight;
+		inputSum += m_bias * m_biasWeight; // Calculate the sum of all inputs
 		float sigmoid = fastSigmoid(inputSum);
 		m_outputVal = m_isDigital ? (sigmoid >= m_threshold ? 1.f : 0.f) : sigmoid;
 		for (Perceptron * outputNode : m_outputs)
 		{
-			outputNode->signalInput();
+			outputNode->signalInput(); // Signal all output nodes that this perceptron has calculated its' value
 		}
 	}
 }

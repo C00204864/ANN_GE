@@ -24,6 +24,7 @@ struct Input
 class Perceptron
 {
 public:
+	// Public Functions
 	Perceptron(std::string id, float threshold, float bias, bool isOutputDigital);
 	~Perceptron();
 	void addInput(Perceptron * inputPerceptron, float weight);
@@ -37,9 +38,11 @@ public:
 	void signalInput();
 	void reset();
 private:
+	// Private Functions
 	float sigmoid(float val);
 	float fastSigmoid(float val);
 
+	// Private Members
 	std::string m_id;
 	std::map<std::string, Input> m_inputs;
 	std::vector<Perceptron *> m_outputs;

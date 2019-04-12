@@ -53,6 +53,7 @@ private:
 	void collisionCheck();
 	void reset();
 	void setupANN();
+	void resetANN();
 	PipePair getClosestPipePair();
 
 	// Private Members
@@ -94,6 +95,7 @@ private:
 	bool m_inputDrawGame;
 
 	bool m_actualVisionMode;
+	bool m_isRunningSavedIndividual;
 
 	// Optimal Inputs
 	const int OPT_POPULATION = 200;

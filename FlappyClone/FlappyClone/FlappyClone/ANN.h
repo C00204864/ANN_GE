@@ -16,6 +16,7 @@
 class ANN
 {
 public:
+	// Public Functions
 	ANN(float threshold, float bias, bool isOutputDigital);
 	~ANN();
 	Perceptron * createNode(std::string id);
@@ -31,6 +32,7 @@ public:
 	void genFromChromosome(Chromosome chromosome);
 	void reset();
 private:
+	// Private Members
 	std::map<std::string, Perceptron *> m_allNodes;
 	std::map<std::string, Perceptron *> m_inputNodes;
 	std::map<std::string, Perceptron *> m_outputNodes;

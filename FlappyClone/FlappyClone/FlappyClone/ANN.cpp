@@ -114,12 +114,14 @@ Chromosome ANN::genChromosome()
 		auto & inputs = node.second->getInputs();
 		for (auto & input : inputs)
 		{
+			// Create a gene for each input node
 			Gene gene;
 			gene.toId = node.second->getId();
 			gene.fromId = input.second.node->getId();
 			gene.weight = input.second.weight;
 			chromosome.addGene(gene);
 		}
+		// Create a gene for the bias
 		Gene gene;
 		gene.toId = node.second->getId();
 		gene.fromId = "bias";
@@ -135,6 +137,7 @@ Chromosome ANN::genChromosome()
 /// <param name="chromosome">Chromosome to be applied</param>
 void ANN::applyChromosome(Chromosome chromosome)
 {
+	// Apply chromosome works when the ANN structure is set but we just need to set weights based off a chromosome of the same structure
 	for (auto & gene : chromosome.getGenes())
 	{
 		Perceptron * p = m_allNodes[gene.toId];
@@ -159,23 +162,18 @@ void ANN::applyChromosome(Chromosome chromosome)
 /// <param name="chromosome">Chromosome from which to generate ANN</param>
 void ANN::genFromChromosome(Chromosome chromosome)
 {
-	//for (auto & node : m_allNodes)
-	//{
-	//	delete node.second;
-	//}
-	//m_allNodes.clear();
 	for (auto & gene : chromosome.getGenes())
 	{
 		std::string toId = gene.toId;
 		std::string fromId = gene.fromId;
-		Perceptron * to = m_allNodes.find(toId) == m_allNodes.end() ? createNode(toId) : m_allNodes[toId];
+		Perceptron * to = m_allNodes.find(toId) == m_allNodes.end() ? createNode(toId) : m_allNodes[toId]; // Create the 'to' node if it doesn't already exists
 		if (gene.fromId.find("bias") != std::string::npos)
 		{
 			to->setBiasWeight(gene.weight);
 		}
 		else
 		{
-			Perceptron * from = m_allNodes.find(fromId) == m_allNodes.end() ? createNode(fromId) : m_allNodes[fromId];
+			Perceptron * from = m_allNodes.find(fromId) == m_allNodes.end() ? createNode(fromId) : m_allNodes[fromId]; // Create the 'from' node if it doesn't already exist
 			createConnection(fromId, toId, gene.weight);
 			to->getInputs()[from->getId()].weight = gene.weight;
 		}
@@ -187,6 +185,7 @@ void ANN::genFromChromosome(Chromosome chromosome)
 /// </summary>
 void ANN::reset()
 {
+	// Reset all nodes
 	for (auto & node : m_allNodes)
 	{
 		if (nullptr != node.second)

@@ -10,6 +10,7 @@
 class PipePair
 {
 public:
+	// Public Functions
 	PipePair(float xPositionIn, int screenHeight, int pipeCount, float gapBetween);
 	~PipePair();
 	void update();
@@ -20,7 +21,10 @@ public:
 	float getX();
 	float getGapY();
 private:
+	// Private Functions
 	void movePipe(sf::RectangleShape & rect);
+
+	// Private Members
 	sf::RectangleShape m_upperPipe;
 	sf::RectangleShape m_lowerPipe;
 	float m_xPosition;
